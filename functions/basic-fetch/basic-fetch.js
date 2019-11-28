@@ -22,7 +22,11 @@ const resolvers = {
     hello: (_, { name }) => `Hello ${name || "World"} ${_}`,
     getPerson: async (_, { id }) => {
       const response = await axios
-        .get(`https://graphql-apollo-server.firebaseio.com/people/${id}.json`)
+        .get(`https://graphql-apollo-server.firebaseio.com/people/${id}.json`, {
+          headers: {
+            "Access-Control-Allow-Headers": "Accept",
+          },
+        })
         .then(res => {
           return res.data
         })

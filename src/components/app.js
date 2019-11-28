@@ -12,6 +12,7 @@ const GET_DATA = gql`
 
 const App = () => {
   const { loading, error, data } = useQuery(GET_DATA)
+  //   console.log(error)
   console.log(data)
   return (
     <div className="App">
