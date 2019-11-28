@@ -1,3 +1,11 @@
 import React from "react"
+import App from "../components/app"
 
-export default () => <div>Hello world!</div>
+export default () => {
+  return (
+    <>
+      <App />
+      <div>Hello world!</div>
+    </>
+  )
+}

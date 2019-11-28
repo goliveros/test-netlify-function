@@ -51,19 +51,22 @@ typings/
 # Output of 'npm pack'
 *.tgz
 
-# dotenv environment variable files
-.env*
-
-# gatsby files
-.cache/
-public
-
-# Mac files
-.DS_Store
-
-# Yarn
-yarn-error.log
-.pnp/
-.pnp.js
 # Yarn Integrity file
 .yarn-integrity
+
+# dotenv environment variables file
+.env
+.env.production
+.env.development
+
+# build folder
+public
+
+# gatsby cache folder
+.cache
+
+# contentful config file
+.contentful.json
+
+# Visual Studio Code settings
+.vscode
