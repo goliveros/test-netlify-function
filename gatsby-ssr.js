@@ -5,7 +5,6 @@ import fetch from "isomorphic-fetch"
 
 const client = new ApolloClient({
   uri: "https://graphql-apollo-server.firebaseio.com/",
-  // request: () => alert(),
 })
 
 export const wrapRootElement = ({ element }) => (

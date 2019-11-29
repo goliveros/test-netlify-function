@@ -21,17 +21,24 @@ const resolvers = {
   Query: {
     hello: (_, { name }) => `Hello ${name || "World"} ${_}`,
     getPerson: async (_, { id }) => {
-      const response = await axios
-        .get(`https://graphql-apollo-server.firebaseio.com/people/${id}.json`, {
-          headers: {
-            "Access-Control-Allow-Headers": "Accept",
-          },
-        })
+      const response = await axios({
+        method: "GET",
+        url: `https://swapi.co/api/people/${id}`,
+      })
         .then(res => {
+          console.log(res)
           return res.data
         })
         .catch(err => console.log(err))
       return response
+      // const response = await axios
+      //   .get(`https://swapi.co/api/people/${id}`)
+      //   .then(res => {
+      //     console.log(res.data)
+      //     return res.data
+      //   })
+      //   .catch(err => console.log(err))
+      // return response
     },
   },
 }
