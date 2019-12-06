@@ -1,47 +1,66 @@
 const { ApolloServer, gql } = require("apollo-server-lambda")
+const axios = require("axios").default
 
 const typeDefs = gql`
   type Query {
-    hello: String
-    allAuthors: [Author!]
-    author(id: Int!): Author
-    authorByName(name: String!): Author
+    hello(name: String): String!
+    getPerson(id: Int!): String!
   }
-  type Author {
-    id: ID!
-    name: String!
-    married: Boolean!
+  type Person {
+    name: String
+    hair_color: String
+    skin_color: String
+    eye_color: String
+    birth_year: Int
+    gender: String
   }
 `
 
-const authors = [
-  { id: 1, name: "Terry Pratchett", married: false },
-  { id: 2, name: "Stephen King", married: true },
-  { id: 3, name: "JK Rowling", married: false },
-]
+// const headers = {
+//   "Access-Control-Allow-Origin": "*",
+//   "Access-Control-Allow-Headers": "Content-Type",
+// }
 
+// exports.handler = async (event, context, callback) => {
+//   try {
+//     callback(null, {
+//       statusCode: 200,
+//       headers,
+//     })
+//     return
+//   } catch (err) {
+//     return { statusCode: 500, body: err.toString() }
+//   }
+// }
+
+// const resolvers = {
+//   Query: {
+//     hello: (_, { name }) => `Hello ${name || "World"} ${_}`,
+//   },
+//   getPerson: async (_, { id }) => {
+//     console.log(id)
+//   },
+// }
 const resolvers = {
   Query: {
-    hello: (root, args, context) => {
-      return "Hello, world!"
-    },
-    allAuthors: (root, args, context) => {
-      return authors
-    },
-    author: (root, args, context) => {
-      return
-    },
-    authorByName: (root, args, context) => {
-      console.log("hihhihi", args.name)
-      return authors.find(x => x.name === args.name) || "NOTFOUND"
+    hello: (_, { name }) => `Hello ${name || "World"} ${_}`,
+    getPerson: async (_, { id }) => {
+      return `this is the passed: ${id}`
+      // const response = await axios({
+      //   method: "GET",
+      //   url: `https://graphql-apollo-server.firebaseio.com/people/${id}`,
+      // })
+      //   .then(res => {
+      //     console.log(res)
+      //     return res.data
+      //   })
+      //   .catch(err => console.log(err))
+      // return response
     },
   },
 }
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-})
+const server = new ApolloServer({ typeDefs, resolvers })
 
 exports.handler = server.createHandler({
   cors: {
@@ -50,5 +69,3 @@ exports.handler = server.createHandler({
     methods: "GET, PUT, POST",
   },
 })
-
-// Docs on event and context https://www.netlify.com/docs/functions/#the-handler-method
