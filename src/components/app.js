@@ -20,6 +20,8 @@ const Apps = () => (
       )
     }}
   </Query>
+
+  // <div>hi</div>
 )
 
 export default Apps

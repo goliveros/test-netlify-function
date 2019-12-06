@@ -16,38 +16,38 @@ const typeDefs = gql`
   }
 `
 
-// const headers = {
-//   "Access-Control-Allow-Origin": "*",
-//   "Access-Control-Allow-Headers": "Content-Type",
-// }
-
-// exports.handler = async (event, context, callback) => {
-//   try {
-//     callback(null, {
-//       statusCode: 200,
-//       headers,
-//     })
-//     return
-//   } catch (err) {
-//     return { statusCode: 500, body: err.toString() }
-//   }
-// }
-
-const resolvers = {
-  Query: {
-    hello: (_, { name }) => `Hello ${name || "World"} ${_}`,
-  },
-  getPerson: async (_, { id }) => {
-    console.log(id)
-  },
+const headers = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "Content-Type",
 }
+
+exports.handler = async (event, context, callback) => {
+  try {
+    callback(null, {
+      statusCode: 200,
+      headers,
+    })
+    return
+  } catch (err) {
+    return { statusCode: 500, body: err.toString() }
+  }
+}
+
+// const resolvers = {
+//   Query: {
+//     hello: (_, { name }) => `Hello ${name || "World"} ${_}`,
+//   },
+//   getPerson: async (_, { id }) => {
+//     console.log(id)
+//   },
+// }
 const resolvers = {
   Query: {
     hello: (_, { name }) => `Hello ${name || "World"} ${_}`,
     getPerson: async (_, { id }) => {
       const response = await axios({
         method: "GET",
-        url: `https://swapi.co/api/people/${id}`,
+        url: `https://graphql-apollo-server.firebaseio.com/people/${id}`,
       })
         .then(res => {
           console.log(res)
@@ -63,7 +63,7 @@ const server = new ApolloServer({ typeDefs, resolvers })
 
 exports.handler = server.createHandler({
   cors: {
-    origin: "http://localhost:8000/",
+    origin: "http://localhost:8888/",
     allowedHeaders: "Content-Type",
     methods: "GET",
   },
