@@ -17,31 +17,48 @@ const typeDefs = gql`
   }
 `
 
+const headers = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "Content-Type",
+}
+
+exports.handler = async (event, context, callback) => {
+  try {
+    callback(null, {
+      statusCode: 200,
+      headers,
+    })
+    return
+  } catch (err) {
+    return { statusCode: 500, body: err.toString() }
+  }
+}
+
 const resolvers = {
   Query: {
     hello: (_, { name }) => `Hello ${name || "World"} ${_}`,
-    getPerson: async (_, { id }) => {
-      const response = await axios({
-        method: "GET",
-        url: `https://swapi.co/api/people/${id}`,
-      })
-        .then(res => {
-          console.log(res)
-          return res.data
-        })
-        .catch(err => console.log(err))
-      return response
-      // const response = await axios
-      //   .get(`https://swapi.co/api/people/${id}`)
-      //   .then(res => {
-      //     console.log(res.data)
-      //     return res.data
-      //   })
-      //   .catch(err => console.log(err))
-      // return response
-    },
+  },
+  getPerson: async (_, { id }) => {
+    console.log(id)
   },
 }
+// const resolvers = {
+//   Query: {
+//     hello: (_, { name }) => `Hello ${name || "World"} ${_}`,
+//     getPerson: async (_, { id }) => {
+//       const response = await axios({
+//         method: "GET",
+//         url: `https://swapi.co/api/people/${id}`,
+//       })
+//         .then(res => {
+//           console.log(res)
+//           return res.data
+//         })
+//         .catch(err => console.log(err))
+//       return response
+//     },
+//   },
+// }
 
 const server = new ApolloServer({ typeDefs, resolvers })
 
