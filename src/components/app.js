@@ -4,9 +4,7 @@ import { gql } from "apollo-boost"
 import { Query } from "react-apollo"
 const GET_DATA = gql`
   query getData {
-    getPerson(id: 1) {
-      name
-    }
+    getPerson(id: 1)
   }
 `
 const Apps = () => (
