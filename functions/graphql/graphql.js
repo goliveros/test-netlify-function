@@ -16,22 +16,22 @@ const typeDefs = gql`
   }
 `
 
-const headers = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "Content-Type",
-}
+// const headers = {
+//   "Access-Control-Allow-Origin": "*",
+//   "Access-Control-Allow-Headers": "Content-Type",
+// }
 
-exports.handler = async (event, context, callback) => {
-  try {
-    callback(null, {
-      statusCode: 200,
-      headers,
-    })
-    return
-  } catch (err) {
-    return { statusCode: 500, body: err.toString() }
-  }
-}
+// exports.handler = async (event, context, callback) => {
+//   try {
+//     callback(null, {
+//       statusCode: 200,
+//       headers,
+//     })
+//     return
+//   } catch (err) {
+//     return { statusCode: 500, body: err.toString() }
+//   }
+// }
 
 // const resolvers = {
 //   Query: {
@@ -64,8 +64,8 @@ const server = new ApolloServer({ typeDefs, resolvers })
 
 exports.handler = server.createHandler({
   cors: {
-    origin: ["http://localhost:8888/", "http://localhost:8000/"],
+    origin: "*",
     allowedHeaders: "Content-Type",
-    methods: "GET",
+    methods: "GET, PUT, POST",
   },
 })
