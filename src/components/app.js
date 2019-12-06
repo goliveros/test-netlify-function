@@ -3,8 +3,10 @@ import { gql } from "apollo-boost"
 // import { useQuery } from "@apollo/react-hooks"
 import { Query } from "react-apollo"
 const GET_DATA = gql`
-  query getData {
-    getPerson(id: 1)
+  {
+    allAuthors {
+      name
+    }
   }
 `
 const Apps = () => (

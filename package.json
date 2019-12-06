@@ -12,8 +12,7 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-    "start:lambda":"netlify-lambda serve functions",
-    "postinstall": "netlify-lambda install"
+    "start:lambda":"netlify-lambda serve functions"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
