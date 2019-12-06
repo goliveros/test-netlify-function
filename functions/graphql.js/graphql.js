@@ -33,14 +33,14 @@ const typeDefs = gql`
 //   }
 // }
 
-// const resolvers = {
-//   Query: {
-//     hello: (_, { name }) => `Hello ${name || "World"} ${_}`,
-//   },
-//   getPerson: async (_, { id }) => {
-//     console.log(id)
-//   },
-// }
+const resolvers = {
+  Query: {
+    hello: (_, { name }) => `Hello ${name || "World"} ${_}`,
+  },
+  getPerson: async (_, { id }) => {
+    console.log(id)
+  },
+}
 const resolvers = {
   Query: {
     hello: (_, { name }) => `Hello ${name || "World"} ${_}`,
@@ -62,5 +62,9 @@ const resolvers = {
 const server = new ApolloServer({ typeDefs, resolvers })
 
 exports.handler = server.createHandler({
-  origin: "*",
+  cors: {
+    origin: "http://localhost:8000/",
+    allowedHeaders: "Content-Type",
+    methods: "GET",
+  },
 })

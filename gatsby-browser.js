@@ -4,7 +4,7 @@ import ApolloClient from "apollo-boost"
 import fetch from "isomorphic-fetch"
 
 const client = new ApolloClient({
-  uri: "https://test-fetch.netlify.com/.netlify/functions/basic-fetch",
+  uri: "https://test-fetch.netlify.com/.netlify/functions/graphql",
   // request: () => alert(),
 })
 
