@@ -46,13 +46,10 @@ const resolvers = {
     hello: (_, { name }) => `Hello ${name || "World"} ${_}`,
     getPerson: async (_, { id }) => {
       return `this is the passed: ${id}`
-      // const response = await axios
-      //   .post(`https://graphql-apollo-server.firebaseio.com/people/${id}`, {
-      //     headers: {
-      //       "Access-Control-Allow-Origin": "*",
-      //       "Access-Control-Allow-Headers": "Content-Type",
-      //     },
-      //   })
+      // const response = await axios({
+      //   method: "GET",
+      //   url: `https://graphql-apollo-server.firebaseio.com/people/${id}`,
+      // })
       //   .then(res => {
       //     console.log(res)
       //     return res.data
