@@ -16,46 +16,19 @@ const typeDefs = gql`
   }
 `
 
-// const headers = {
-//   "Access-Control-Allow-Origin": "*",
-//   "Access-Control-Allow-Headers": "Content-Type",
-// }
-
-// exports.handler = async (event, context, callback) => {
-//   try {
-//     callback(null, {
-//       statusCode: 200,
-//       headers,
-//     })
-//     return
-//   } catch (err) {
-//     return { statusCode: 500, body: err.toString() }
-//   }
-// }
-
-// const resolvers = {
-//   Query: {
-//     hello: (_, { name }) => `Hello ${name || "World"} ${_}`,
-//   },
-//   getPerson: async (_, { id }) => {
-//     console.log(id)
-//   },
-// }
 const resolvers = {
   Query: {
     hello: (_, { name }) => `Hello ${name || "World"} ${_}`,
     getPerson: async (_, { id }) => {
-      return `this is the passed: ${id}`
-      // const response = await axios({
-      //   method: "GET",
-      //   url: `https://graphql-apollo-server.firebaseio.com/people/${id}`,
-      // })
-      //   .then(res => {
-      //     console.log(res)
-      //     return res.data
-      //   })
-      //   .catch(err => console.log(err))
-      // return response
+      // return `this is the passed: ${id}`
+      const response = await axios
+        .post(`https://graphql-apollo-server.firebaseio.com/people/${id}`)
+        .then(res => {
+          console.log(res)
+          return res.data
+        })
+        .catch(err => console.log(err))
+      return response
     },
   },
 }
@@ -65,7 +38,7 @@ const server = new ApolloServer({ typeDefs, resolvers })
 exports.handler = server.createHandler({
   cors: {
     origin: "*",
-    allowedHeaders: "Content-Type",
+    allowedHeaders: "Content-Type, Origin, Accept, X-Requested-With",
     methods: "GET, PUT, POST",
   },
 })
