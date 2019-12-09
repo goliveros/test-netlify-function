@@ -4,7 +4,7 @@ const axios = require("axios").default
 const typeDefs = gql`
   type Query {
     hello(name: String): String!
-    getPerson(id: Int!): String!
+    getPerson(id: Int!): Person
   }
   type Person {
     name: String
@@ -22,7 +22,7 @@ const resolvers = {
     getPerson: async (_, { id }) => {
       // return `this is the passed: ${id}`
       const response = await axios
-        .post(`https://graphql-apollo-server.firebaseio.com/people/${id}`)
+        .get(`https://graphql-apollo-server.firebaseio.com/people/${id}.json`)
         .then(res => {
           console.log(res)
           return res.data
@@ -33,6 +33,11 @@ const resolvers = {
   },
 }
 
-const server = new ApolloServer({ typeDefs, resolvers })
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  introspection: true,
+  playground: true,
+})
 
 exports.handler = server.createHandler()
