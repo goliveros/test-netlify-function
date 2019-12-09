@@ -40,5 +40,6 @@ exports.handler = server.createHandler({
     origin: "*",
     allowedHeaders: "Content-Type, Origin, Accept, X-Requested-With",
     methods: "GET, PUT, POST",
+    credentials: true,
   },
 })
