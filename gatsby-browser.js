@@ -5,6 +5,12 @@ import fetch from "isomorphic-fetch"
 
 const client = new ApolloClient({
   uri: "/.netlify/functions/graphql",
+  fetchOptions: {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+  },
 })
 
 export const wrapRootElement = ({ element }) => (
