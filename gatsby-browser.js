@@ -11,6 +11,7 @@ const client = new ApolloClient({
       "Access-Control-Allow-Headers": "Content-Type",
     },
   },
+  fetch,
 })
 
 export const wrapRootElement = ({ element }) => (
