@@ -18,7 +18,7 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    hello: (_, { name }) => `Hello ${name || "World"} ${_}`,
+    hello: (_, { name }) => `Hello ${name || "World"} Gian`,
     getPerson: async (_, { id }) => {
       // return `this is the passed: ${id}`
       const response = await axios
@@ -36,6 +36,14 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  introspection: true,
+  playground: true,
 })
 
-exports.handler = server.createHandler()
+exports.handler = server.createHandler({
+  cors: {
+    origin: "*",
+    allowedHeaders: "Content-Type, Origin, Accept, X-Requested-With",
+    methods: "GET, PUT, POST",
+  },
+})
