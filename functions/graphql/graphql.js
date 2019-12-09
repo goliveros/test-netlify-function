@@ -18,9 +18,8 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    hello: (_, { name }) => `Hello ${name || "World"} Gian`,
+    hello: (_, { name }) => `Hello ${name || "World"} Gians`,
     getPerson: async (_, { id }) => {
-      // return `this is the passed: ${id}`
       const response = await axios
         .get(`https://graphql-apollo-server.firebaseio.com/people/${id}.json`)
         .then(res => {

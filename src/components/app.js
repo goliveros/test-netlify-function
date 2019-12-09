@@ -18,6 +18,7 @@ const Apps = () => (
       return (
         <div className="App">
           <header className="App-header">Learn React</header>
+          {data ? <p>{data.hello} I'm from the graphql</p> : "null"}
         </div>
       )
     }}
