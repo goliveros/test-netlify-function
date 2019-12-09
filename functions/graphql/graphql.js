@@ -36,14 +36,6 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  introspection: true,
-  playground: true,
 })
 
-exports.handler = server.createHandler({
-  cors: {
-    origin: "*",
-    allowedHeaders: "Content-Type, Origin, Accept, X-Requested-With",
-    methods: "GET, PUT, POST",
-  },
-})
+exports.handler = server.createHandler()
