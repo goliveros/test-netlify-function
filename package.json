@@ -13,7 +13,7 @@
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "start:lambda": "netlify-lambda serve functions/graphql/",
-    "postinstall": "netlify-lambda install"
+    "postinstall": "netlify-lambda install functions/graphql/"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",

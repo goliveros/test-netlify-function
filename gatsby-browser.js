@@ -5,7 +5,7 @@ import fetch from "isomorphic-fetch"
 
 const client = new ApolloClient({
   uri: "/.netlify/functions/graphql",
-  // fetch,
+  fetch,
   fetchOptions: {
     headers: {
       "Access-Control-Allow-Origin": "*",
