@@ -4,7 +4,7 @@ const axios = require("axios").default
 const typeDefs = gql`
   type Query {
     hello(name: String): String!
-    getPerson(id: Int!): Person
+    getPerson(id: Int!): String!
   }
   type Person {
     name: String
@@ -16,32 +16,56 @@ const typeDefs = gql`
   }
 `
 
+// const headers = {
+//   "Access-Control-Allow-Origin": "*",
+//   "Access-Control-Allow-Headers": "Content-Type",
+// }
+
+// exports.handler = async (event, context, callback) => {
+//   try {
+//     callback(null, {
+//       statusCode: 200,
+//       headers,
+//     })
+//     return
+//   } catch (err) {
+//     return { statusCode: 500, body: err.toString() }
+//   }
+// }
+
+// const resolvers = {
+//   Query: {
+//     hello: (_, { name }) => `Hello ${name || "World"} ${_}`,
+//   },
+//   getPerson: async (_, { id }) => {
+//     console.log(id)
+//   },
+// }
 const resolvers = {
   Query: {
-    hello: (_, { name }) => `Hello ${name || "World"} Gian`,
+    hello: (_, { name }) => `Hello ${name || "World"} ${_}`,
     getPerson: async (_, { id }) => {
-      // return `this is the passed: ${id}`
-      const response = await axios
-        .get(`https://graphql-apollo-server.firebaseio.com/people/${id}.json`)
-        .then(res => {
-          console.log(res)
-          return res.data
-        })
-        .catch(err => console.log(err))
-      return response
+      return `this is the passed: ${id}`
+      // const response = await axios({
+      //   method: "GET",
+      //   url: `https://graphql-apollo-server.firebaseio.com/people/${id}`,
+      // })
+      //   .then(res => {
+      //     console.log(res)
+      //     return res.data
+      //   })
+      //   .catch(err => console.log(err))
+      // return response
     },
   },
 }
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-})
+const server = new ApolloServer({ typeDefs, resolvers })
 
 exports.handler = server.createHandler({
   cors: {
     origin: "*",
-    allowedHeaders: "Content-Type, Origin, Accept, X-Requested-With",
+    allowedHeaders: "Content-Type",
     methods: "GET, PUT, POST",
   },
 })
