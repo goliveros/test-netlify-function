@@ -36,8 +36,8 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  introspection: true,
-  playground: true,
+  // introspection: true,
+  // playground: true,
 })
 
 exports.handler = server.createHandler({
