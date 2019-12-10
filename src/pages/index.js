@@ -5,7 +5,6 @@ const IndexPage = () => {
   return (
     <>
       <Apps />
-      <div>Hello world!</div>
     </>
   )
 }

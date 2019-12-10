@@ -1,30 +1,37 @@
 import React from "react"
 import { gql } from "apollo-boost"
-// import { useQuery } from "@apollo/react-hooks"
-import { Query } from "react-apollo"
+import { useQuery } from "@apollo/react-hooks"
 const GET_DATA = gql`
-  query get_data {
-    hello
+  {
+    hello(name: "earthling")
     getPerson(id: 1) {
       name
       hair_color
+      skin_color
+      birth_year
+      gender
     }
   }
 `
-const Apps = () => (
-  <Query query={GET_DATA}>
-    {({ loading, error, data }) => {
-      console.log(data)
-      return (
-        <div className="App">
-          <header className="App-header">Learn React</header>
-          {data ? <p>{data.hello} I'm from the graphql</p> : "null"}
-        </div>
-      )
-    }}
-  </Query>
-
-  // <div>hi</div>
-)
+const Apps = () => {
+  const { loading, error, data } = useQuery(GET_DATA)
+  return (
+    <div className="App">
+      <header className="App-header">An alien aproaches...</header>
+      {data ? (
+        <p>
+          {data.hello}, I'm from the graphql
+          <br />
+          We know all about you ↴
+        </p>
+      ) : (
+        ""
+      )}
+      <p>{loading ? "...loading" : ""}</p>
+      {error && <pre>{JSON.stringify(error, null, 2)}</pre>}
+      <pre>{JSON.stringify(data.getPerson, null, 2)}</pre>
+    </div>
+  )
+}
 
 export default Apps
