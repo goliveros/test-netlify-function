@@ -19,17 +19,19 @@ const Apps = () => {
     <div className="App">
       <header className="App-header">An alien aproaches...</header>
       {data ? (
-        <p>
-          {data.hello}, I'm from the graphql
-          <br />
-          We know all about you ↴
-        </p>
+        <>
+          <p>
+            {data.hello}, I'm from the graphql
+            <br />
+            We know all about you ↴
+          </p>
+          <pre>{JSON.stringify(data.getPerson, null, 2)}</pre>
+        </>
       ) : (
         ""
       )}
       <p>{loading ? "...loading" : ""}</p>
       {error && <pre>{JSON.stringify(error, null, 2)}</pre>}
-      <pre>{JSON.stringify(data.getPerson, null, 2)}</pre>
     </div>
   )
 }
